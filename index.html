@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Toky Fandresena MANOVOSOA</title>
+    <style>
+        /* --- VARIABLES & PALETTE --- */
+        :root {
+            --bg-color: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-surface-accent: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #34d399;
+            --border-color: #475569;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- STYLES GENERAUX (SANS FLEX/GRID AU NIVEAU GLOBAL) --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- HEADER & HERO BAR --- */
+        header {
+            background-color: var(--bg-surface);
+            border-bottom: 2px solid var(--accent-primary);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .hero-name {
+            font-size: 24pt;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 14pt;
+            color: var(--accent-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .hero-loc {
+            font-size: 11pt;
+            color: var(--text-muted);
+        }
+
+        /* --- NAVIGATION / ANCHORS --- */
+        .nav-bar {
+            background-color: var(--bg-surface-accent);
+            text-align: center;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+        }
+
+        .nav-bar a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 11pt;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-bar a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* --- SECTIONS LAYOUT --- */
+        section {
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 16pt;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-primary);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 11pt;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* --- TABLE LAYOUT POUR LES COLONNES (EVITER FLEX/GRID SOUVENT MAL GERES) --- */
+        .row-table {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+
+        .col-cell {
+            display: table-cell;
+            vertical-align: top;
+            background-color: var(--bg-surface);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- SKILLS BLOCKS --- */
+        .skill-group {
+            margin-bottom: 20px;
+        }
+
+        .skill-group h3 {
+            font-size: 12pt;
+            color: var(--accent-secondary);
+            margin-bottom: 10px;
+        }
+
+        .skill-tags {
+            margin-top: 5px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--bg-surface-accent);
+            color: var(--text-main);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 9.5pt;
+            margin-right: 6px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- TIMELINE / EXPERIENCES --- */
+        .project-card {
+            background-color: var(--bg-surface);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .project-header {
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-size: 13pt;
+            color: var(--accent-primary);
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .project-date {
+            float: right;
+            font-size: 10pt;
+            color: var(--text-muted);
+            background-color: var(--bg-surface-accent);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .project-desc {
+            font-size: 10.5pt;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-top: 8px;
+            color: var(--text-muted);
+            font-size: 10pt;
+        }
+
+        .bullet-list li {
+            margin-bottom: 5px;
+        }
+
+        /* --- CONFERENCE ITEM --- */
+        .conf-item {
+            background-color: var(--bg-surface);
+            border-left: 3px solid var(--accent-secondary);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .conf-meta {
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .conf-loc {
+            color: var(--accent-secondary);
+            font-size: 10pt;
+        }
+
+        /* --- FOOTER & CONTACT --- */
+        footer {
+            background-color: var(--bg-surface);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background-color: var(--accent-primary);
+            color: var(--bg-color);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 11pt;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+
+        .contact-btn:hover {
+            background-color: #7dd3fc;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .row-table {
+                display: block;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .col-cell {
+                display: block;
+                width: 100% !important;
+                margin-bottom: 20px;
+            }
+            .project-date {
+                float: none;
+                display: inline-block;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO HEADER -->
+    <header id="accueil">
+        <div class="container">
+            <h1 class="hero-name">Toky Fandresena J. Rakotovao Manovosoa</h1>
+            <div class="hero-title">Ingénieur de Données / Data Analyst & SIG</div>
+            <div class="hero-loc">📍 Antananarivo, Madagascar</div>
+        </div>
+    </header>
+
+    <!-- BARRE DE NAVIGATION -->
+    <div class="nav-bar">
+        <a href="#accueil">Accueil</a>
+        <a href="#profil">Profil</a>
+        <a href="#competences">Compétences</a>
+        <a href="#projets">Projets</a>
+        <a href="#conferences">International</a>
+    </div>
+
+    <!-- PROFIL / A PROPOS -->
+    <section id="profil">
+        <div class="container">
+            <h2>À Propos de Moi</h2>
+            <p>Ingénieur de données et développeur passionné, j'automatise la collecte, sécurise le traitement et sublime la visualisation des données complexes. Spécialisé dans les architectures de pipelines de données (ODK, Python, PostgreSQL) et les systèmes d'information géographique (SIG), je conçois des outils d'aide à la décision sur mesure, allant du script d'encapsulation de sécurité aux interfaces web interactives et dynamiques.</p>
+        </div>
+    </section>
+
+    <!-- COMPETENCES COMPLÈTES -->
+    <section id="competences">
+        <div class="container">
+            <h2>Compétences Techniques</h2>
+            
+            <div class="row-table">
+                <!-- Data Engineering -->
+                <div class="col-cell" style="width: 50%;">
+                    <div class="skill-group">
+                        <h3>Data Engineering & Collecte</h3>
+                        <p style="font-size:10pt;">Pipelines robustes et conformité aux standards internationaux.</p>
+                        <div class="skill-tags">
+                            <span class="tag">Python (Pandas, NumPy)</span>
+                            <span class="tag">Open Data Kit (ODK Server)</span>
+                            <span class="tag">XLSForm Conception</span>
+                            <span class="tag">PostgreSQL / PostGIS</span>
+                            <span class="tag">Standard SDMX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dev Logiciel & Web -->
+                <div class="col-cell" style="width: 50%;">
+                    <div class="skill-group">
+                        <h3>Développement & Outils</h3>
+                        <p style="font-size:10pt;">Interfaces modernes & visualisation.</p>
+                        <div class="skill-tags">
+                            <span class="tag">NiceGUI</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">Leaflet.js</span>
+                            <span class="tag">C++ (DLL Natives)</span>
+                            <span class="tag">Data Chiffrement</span>
+                            <span class="tag">QGIS</span>
+                            <span class="tag">Looker Studio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PROJETS RECENT & RÉALISATIONS -->
+    <section id="projets">
+        <div class="container">
+            <h2>Parcours & Réalisations</h2>
+
+            <!-- Projet 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Outil d'Analyse & Diagnostic IA (Secteur Éducatif)</div>
+                    <div class="project-date">2026</div>
+                    <div class="clear"></div>
+                </div>
+                <p class="project-desc">Conception et développement d'un moteur automatisé basé sur l'intelligence artificielle pour auditer et diagnostiquer en profondeur les indicateurs éducatifs régionaux à Madagascar.</p>
+                <ul class="bullet-list">
+                    <li>Structuration, nettoyage et optimisation des flux massifs au format JSON.</li>
+                    <li>Interfaçage optimisé avec les LLM pour générer des diagnostics territoriaux exploitables.</li>
+                </ul>
+            </div>
+            <!-- Projet 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Module C++ de Sécurisation des Données</div>
+                    <div class="project-date">2026</div>
+                    <div class="clear"></div>
+                </div>
+                <p class="project-desc">Création d'une brique logicielle bas niveau pour la protection et la confidentialité des flux de données sensibles collectés sur le terrain.</p>
+                <ul class="bullet-list">
+                    <li>Développement d'une bibliothèque dynamique native (<strong>DLL en C++</strong>).</li>
+                    <li>Encapsulation et liaison transparente des fonctions de chiffrement/déchiffrement avec <strong>Python</strong>.</li>
+                </ul>
+            </div>
+            <!-- Projet 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Plateforme Web SIG de Cartographie Scolaire</div>
+                    <div class="project-date">2025</div>
+                    <div class="clear"></div>
+                </div>
+                <p class="project-desc">Développement complet d'une application d'aide à la décision permettant de cartographier dynamiquement l'ensemble des indicateurs des établissements scolaires.</p>
+                <ul class="bullet-list">
+                    <li>Architecture Web robuste propulsée par <strong>Django</strong>.</li>
+                    <li>Visualisation géographique et interactive fluide des indicateurs via <strong>Leaflet.js</strong>.</li>
+                </ul>
+            </div>
+            <!-- Projet 4 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">Plateforme Web SIG pour l'Organisation du Réseaux Scolaire</div>
+                    <div class="project-date">2023-2024</div>
+                    <div class="clear"></div>
+                </div>
+                <p class="project-desc">Développement d'un outils d'aide à la décision permettant de gérer le réseaux scolaire.</p>
+                <ul class="bullet-list">
+                    <li>Architecture Web robuste propulsée par <strong>Django</strong>.</li>
+                    <li>Visualisation géographique via <strong>Leaflet.js</strong>.</li>
+                </ul>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- CONFERENCES ET ENGAGEMENTS -->
+    <section id="conferences">
+        <div class="container">
+            <h2>Parcours International & Conférences</h2>
+            <p style="margin-bottom: 25px;">Expertise sectorielle mobilisée dans le cadre d'initiatives globales pour l'harmonisation des statistiques :</p>
+
+            <div class="conf-item">
+                <div class="conf-meta">Rassemblement des Équipes Nationales du PASEC</div>
+                <div class="conf-loc">📍 Cotonou, Bénin — Février 2026</div>
+                <p style="margin-top: 5px; font-size:10pt;">Contribution aux analyses des systèmes éducatifs de la CONFEMEN.</p>
+            </div>
+
+            <div class="conf-item">
+                <div class="conf-meta">Conférence Mondiale SDMX 2025</div>
+                <div class="conf-loc">📍 Rome, Italie — Octobre 2025</div>
+                <p style="margin-top: 5px; font-size:10pt;">Participation aux groupes de travail sur les standards internationaux d'échange de métadonnées statistiques.</p>
+            </div>
+
+            <div class="conf-item">
+                <div class="conf-meta">Atelier Régional de Formation Approfondie SDMX</div>
+                <div class="conf-loc">📍 Istanbul, Turquie — Décembre 2024</div>
+            </div>
+
+            <div class="conf-item">
+                <div class="conf-meta">Sessions de renforcement de compétence en STATA</div>
+                <div class="conf-loc">📍 Douala, Cameroun — Mai 2024</div>
+            </div>
+            <div class="conf-item">
+                <div class="conf-meta">Formation en Suivi-Evaluation des projets</div>
+                <div class="conf-loc">📍 Paris, France — Décembre 2023</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER & CONTACT -->
+    <footer>
+        <div class="container">
+            <h2>Contact & Collaboration</h2>
+            <p>Vous avez besoin d'automatiser vos pipelines de collecte (ODK), de déployer une interface réactive sous NiceGUI ou de valoriser vos bases de données géospatiales ?</p>
+            <p><strong>whatsapp :</strong> +261 34 20 839 83 </p>
+            <a href="mailto:mtfandresena@gmail.com" class="contact-btn">Me Contacter</a>
+        </div>
+    </footer>
+
+</body>
+</html>
